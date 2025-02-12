@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Method</title>
+    <link rel="stylesheet" href="pmpstyles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">IU Canteen</div>
+        <ul class="nav-links">
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">Who we are</a></li>
+            <li><a href="#">My Profile</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Payment Method</h1>
+        <div class="payment-options">
+            <label>
+                <input type="radio" name="payment" value="cash" checked> In Cash
+            </label>
+            <label>
+                <input type="radio" name="payment" value="momo"> Momo
+            </label>
+            <label>
+                <input type="radio" name="payment" value="credit"> Credit Card
+            </label>
+        </div>
+        <div class="credit-card-info">
+            <p>Please type your card infomation if chosing credit card:</p>
+            <input type="text" placeholder="Card Holder Name" />
+            <input type="text" placeholder="Card Number" />
+            <input type="text" placeholder="Expiry Date" />
+            <input type="text" placeholder="CVV Code" />
+        </div>
+        <a href="completion.php"><button class="submit-button">SUBMIT</button></a>
+    </div>
+</body>
+</html>

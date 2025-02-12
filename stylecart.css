@@ -1,0 +1,142 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    font-size: 24px;
+    color: #4d4dff;
+    margin: 0;
+}
+
+.navbar nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.navbar .basket {
+    background-color: #6d44ff;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main {
+    padding: 20px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cart-items {
+    width: 65%;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.item img {
+    width: 100px;
+    height: 80px;
+    border-radius: 5px;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.item-details {
+    flex-grow: 1; /* Allows item-details to take available space */
+    display: flex; /* Use flex for alignment */
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Center vertically */
+}
+
+.item-details h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.item-details p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: green;
+}
+
+.item-details i {
+    color: black; /* Change icon color to black */
+    cursor: pointer; /* Changes cursor on hover */
+    font-size: 20px; /* Increase size for better visibility */
+}
+
+.item-details i:hover {
+    color: #555; /* Slightly darker on hover for feedback */
+}
+
+.order-summary {
+    width: 30%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary h3 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.order-summary p {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.order-summary .total {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.continue-button {
+    width: 100%;
+    background-color: #6d44ff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}

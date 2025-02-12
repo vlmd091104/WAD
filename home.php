@@ -1,0 +1,43 @@
+<?php
+    session_start();
+    include("connect.php");
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IU Canteen</title>
+    <link rel="icon" type="image/png" href="images/iu_favicon.png">
+    <link rel="stylesheet" href="stylehome.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.php" title="Home"><pre>Home</pre></a></li>
+                <li><a href="about_us.php" title="About Us"><pre>About Us</pre></a></li>
+                <li><a href="mailto:vuleminhduc19@gmail.com" target="_blank" title="Contact"><pre>Contact</pre></a></li>
+                <li><a href="index.php" title="Sign In"><pre>Sign In</pre></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h3>Welcome to IU Canteen</h3>
+        <div class="image-gallery">
+            <img src="images/dish1.png" alt="Dish 1">
+            <img src="images/dish2.png" alt="Dish 2">
+            <img src="images/dish3.png" alt="Dish 3">
+        </div>
+    </main>
+
+    <footer>
+        <p>Author: Group 8</p>
+        <p>&copy; Copyright Reserved</p>
+        <small><a href="mailto:vuleminhduc19@gmail.com">vuleminhduc19@gmail.com</a></small>
+    </footer>
+</body>
+</html>
