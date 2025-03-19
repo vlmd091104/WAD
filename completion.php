@@ -10,20 +10,17 @@
     <title>Order complete</title>
     <link rel="icon" type="image/png" href="images/iu_favicon.png">
     <style>
-      
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
         }
-
         body {
             display: flex;
             justify-content: center;
             background-color: white;
         }
-
         .container {
             width: 100%;
             max-width: 1200px;
@@ -33,8 +30,6 @@
             background-color: white;
             min-height: 100vh;
         }
-
-
         .navbar {
             display: flex;
             align-items: center;
@@ -44,53 +39,43 @@
             width: 100%;
             padding: 10px 20px;
         }
-
         .navbar h1 {
             font-size: 24px;
             font-weight: bold;
             color: white;
         }
-
         .navbar nav {
             display: flex;
             gap: 25px;
         }
-
         .navbar nav a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-weight: bold;
         }
-
         .navbar .icons {
             display: flex;
             align-items: center;
         }
-
         .navbar .icons img {
             width: 24px;
             height: 24px;
             margin-left: 30px;
         }
-
-
         .order-placed {
             text-align: center;
             margin-top: 50px;
         }
-
         .order-placed h2 {
             font-size: 32px;
             color: #4caf50;
             margin-bottom: 10px;
         }
-
         .order-placed p {
             font-size: 18px;
             color: #555;
         }
-
         .order-summary {
             width: 100%;
             background-color: #ffe6f0; 
@@ -99,13 +84,11 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
         .order-summary h3 {
             font-size: 24px;
             color: #333;
             margin-bottom: 15px;
         }
-
         .order-item {
             display: flex;
             justify-content: space-between;
@@ -113,11 +96,9 @@
             border-bottom: 1px solid #ddd;
             color: #666;
         }
-
         .order-item:last-child {
             border-bottom: none;
         }
-
         .total-amount {
             display: flex;
             justify-content: space-between;
@@ -126,7 +107,6 @@
             margin-top: 15px;
             color: #333;
         }
-
         .back-menu {
             display: inline-block;
             background-color: #e91e63;
@@ -139,7 +119,6 @@
             border-radius: 8px;
             margin-top: 20px;
         }
-
         .back-to-home:hover {
             background-color: #d81b60;
         }
@@ -147,7 +126,6 @@
 </head>
 <body>
     <div class="container">
-     
         <div class="navbar">
             <h1>IU Canteen</h1>
             <nav>
@@ -161,7 +139,6 @@
                 <a href="profile.php"><img src="https://th.bing.com/th/id/R.8e2c571ff125b3531705198a15d3103c?rik=muXZvm3dsoQqwg&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fpng-user-icon-person-icon-png-people-person-user-icon-2240.png&ehk=MfHYkGonqy7I%2fGTKUAzUFpbYm9DhfXA9Q70oeFxWmH8%3d&risl=&pid=ImgRaw&r=0" alt="User Icon"></a>
             </div>
         </div>
-
         <div class="order-placed">
             <h2>Order Placed Successfully!</h2>
             <p>Thank you for your order. Your food is being prepared and will be delivered soon!</p>
@@ -176,8 +153,6 @@
                 }}
             ?>
         </div>
-
-   
         <div class="order-summary">
             <h3>Order Summary</h3>
             <div class="order-item">
@@ -190,33 +165,22 @@
             </div>
         </div>
         <script>
-        // Set the countdown time in seconds (30 minutes)
         let countdownTime = 15 * 60;
-
-        // Update the countdown every second
         const timerElement = document.getElementById('timer');
         const countdownInterval = setInterval(() => {
             const minutes = Math.floor(countdownTime / 60);
             const seconds = countdownTime % 60;
-
-            // Format minutes and seconds
             const formattedMinutes = String(minutes).padStart(2, '0');
             const formattedSeconds = String(seconds).padStart(2, '0');
-
-            // Update the timer display
             timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
-
-            // Decrease the countdown time
             countdownTime--;
-
-            // Stop the countdown when it reaches zero
             if (countdownTime < 0) {
                 clearInterval(countdownInterval);
                 timerElement.textContent = "Time's up!";
             }
         }, 1000);
         </script>
-        <a href="menu.php" class="back-menu">Back to Menu</a>
+        <a href="index.html" class="back-menu">Back to Menu</a>
     </div>
 </body>
 </html>
