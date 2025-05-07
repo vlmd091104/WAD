@@ -129,7 +129,7 @@
         <div class="navbar">
             <h1>IU Canteen</h1>
             <nav>
-                <a href="home.php">Home</a>
+                <a href="index.html">Home</a>
                 <a href="menu.php">Menu</a>
                 <a href="#">Promotion</a>
                 <a href="about_us.php">About Us</a>
@@ -149,7 +149,7 @@
                 if(mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){
                         echo '<p>Your cart order date: '.$row['date'].'</p>';
-                        echo '<p>Your shipper: '.$row['shipper_name'].'</p>';
+                        echo '<p>Your shipper: '.$row['deliverer_name'].'</p>';
                 }}
             ?>
         </div>

@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About us</title>
     <link rel="icon" type="image/png" href="images/iu_favicon.png">
-    <link rel="stylesheet" href="styleaboutus.css">
+    <link rel="stylesheet" href="style/aboutus.css">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="home.php" title="Home"><pre>Home</pre></a></li>
+                <li><a href="index.html" title="Home"><pre>Home</pre></a></li>
                 <li><a href="about_us.php" title="About Us"><pre>About Us</pre></a></li>
                 <li><a href="mailto:vuleminhduc19@gmail.com" target="_blank" title="Contact"><pre>Contact</pre></a></li>
             </ul>

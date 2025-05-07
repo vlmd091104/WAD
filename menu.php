@@ -176,7 +176,7 @@
         <div class="navbar">
             <h1>IU Canteen</h1>
             <nav>
-                <a href="home.php">Home</a>
+                <a href="index.html">Home</a>
                 <a href="menu.php">Menu</a>
                 <a href="#">Promotion</a>
                 <a href="about_us.php">About Us</a>

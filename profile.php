@@ -9,7 +9,7 @@ include("connect.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="styleprofile.css">
+    <link rel="stylesheet" href="style/profile.css">
     <link rel="icon" type="image/png" href="images/iu_favicon.png">
 </head>
 <body>
@@ -18,7 +18,7 @@ include("connect.php");
         Hello <?php
         if (isset($_SESSION['email'])) {
             $email = $_SESSION['email'];
-            $query = mysqli_query($conn, "SELECT user.* FROM `user` WHERE user.email='$email'");
+            $query = mysqli_query($conn, "SELECT users.* FROM `users` WHERE users.email='$email'");
             $row = mysqli_fetch_array($query);
             echo htmlspecialchars($row['fullname']);
         }
