@@ -9,120 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order complete</title>
     <link rel="icon" type="image/png" href="images/iu_favicon.png">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            background-color: white;
-        }
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: white;
-            min-height: 100vh;
-        }
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(90deg, purple, pink);
-            color: white;
-            width: 100%;
-            padding: 10px 20px;
-        }
-        .navbar h1 {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-        }
-        .navbar nav {
-            display: flex;
-            gap: 25px;
-        }
-        .navbar nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
-        .navbar .icons {
-            display: flex;
-            align-items: center;
-        }
-        .navbar .icons img {
-            width: 24px;
-            height: 24px;
-            margin-left: 30px;
-        }
-        .order-placed {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .order-placed h2 {
-            font-size: 32px;
-            color: #4caf50;
-            margin-bottom: 10px;
-        }
-        .order-placed p {
-            font-size: 18px;
-            color: #555;
-        }
-        .order-summary {
-            width: 100%;
-            background-color: #ffe6f0; 
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .order-summary h3 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 15px;
-        }
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-            color: #666;
-        }
-        .order-item:last-child {
-            border-bottom: none;
-        }
-        .total-amount {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 18px;
-            margin-top: 15px;
-            color: #333;
-        }
-        .back-menu {
-            display: inline-block;
-            background-color: #e91e63;
-            color: white;
-            padding: 15px 30px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        .back-to-home:hover {
-            background-color: #d81b60;
-        }
-    </style>
+    <link rel="stylesheet" href="style/completion.css">
 </head>
 <body>
     <div class="container">
@@ -180,7 +67,7 @@
             }
         }, 1000);
         </script>
-        <a href="index.html" class="back-menu">Back to Menu</a>
+        <a href="index.html" class="back-menu">Back to Home</a>
     </div>
 </body>
 </html>

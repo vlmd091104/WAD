@@ -35,6 +35,7 @@ if(isset($_POST['signIn'])){
         $row=$result->fetch_assoc();
         $_SESSION['email']=$row['email'];
         header("location: menu.php");
+        session_start();
         exit();
     } else {
         echo"Incorrect Email or Password. Try again!";
