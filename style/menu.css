@@ -8,7 +8,7 @@
 body {
     display: flex;
     justify-content: center;
-    background-color: white;
+    background-color: #f4f4f4; /* Use background from home.css */
 }
 
 .container {
@@ -24,7 +24,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(90deg, purple, pink);
+    background: #6200ea; /* Consistent with home.css */
     color: white;
     padding: 10px 20px;
 }
@@ -67,7 +67,7 @@ body {
 .menu-categories {
     display: flex;
     justify-content: space-around;
-    background:  #ffe6f0;
+    background: #ffe6f0; /* Light background for categories */
     color: lightslategrey;
     padding: 10px;
     font-weight: bold;
@@ -84,20 +84,17 @@ body {
     border-radius: 8px;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #fce4ec;
-    margin: 0;
-}
 .header {
-    background-color: #9c27b0;
+    background-color: #6200ea; /* Consistent header color */
     color: white;
     padding: 20px;
     text-align: center;
 }
+
 .menu-section {
     margin: 20px;
 }
+
 .menu-item {
     border: 1px solid #ddd;
     padding: 20px;
@@ -105,18 +102,22 @@ body {
     background-color: #fff;
     border-radius: 5px;
 }
+
 .menu-item h3 {
     margin: 0;
 }
+
 .menu-item p {
     margin: 5px 0;
 }
-.menu-item i:hover{
+
+.menu-item i:hover {
     color: #555;
 }
+
 .order-sidebar {
     width: 300px;
-    background-color:  #ffe6f0;
+    background-color: #ffe6f0; /* Light background for sidebar */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -141,7 +142,7 @@ body {
 }
 
 .cash-out {
-    background-color: #e91e63;
+    background-color: #e91e63; /* Checkout button color */
     color: white;
     padding: 15px;
     text-align: center;
@@ -152,5 +153,5 @@ body {
 }
 
 .cash-out:hover {
-    background-color: #e91e63;
+    background-color: #d81b60; /* Darker shade on hover */
 }
