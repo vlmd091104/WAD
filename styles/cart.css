@@ -1,14 +1,14 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: sans-serif; /* Use sans-serif font for consistency */
     margin: 0;
     padding: 0;
     background-color: #f4f4f4; /* Match background color */
 }
 
 header {
-    background-color: white;
-    border-bottom: 1px solid #ddd;
+    background-color: #6200ea; /* Navbar background color */
     padding: 10px 20px;
+    color: white; /* Text color for the header */
 }
 
 .navbar {
@@ -19,24 +19,18 @@ header {
 
 .navbar h1 {
     font-size: 24px;
-    color: white; /* Change to white for consistency */
     margin: 0;
 }
 
+.navbar nav {
+    display: flex;
+    gap: 25px; /* Space between nav items */
+}
+
 .navbar nav a {
-    margin: 0 15px;
     text-decoration: none;
     color: white; /* Change to white for consistency */
     font-size: 16px;
-}
-
-.navbar .basket {
-    background-color: #6200ea; /* Consistent with home.css */
-    color: white;
-    padding: 5px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 main {
@@ -46,6 +40,7 @@ main {
 h2 {
     font-size: 28px;
     margin-bottom: 10px;
+    color: #6200ea; /* Title color */
 }
 
 .cart-container {
@@ -68,14 +63,6 @@ h2 {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
-.item img {
-    width: 100px;
-    height: 80px;
-    border-radius: 5px;
-    margin-right: 15px;
-    object-fit: cover;
-}
-
 .item-details {
     flex-grow: 1; /* Allows item-details to take available space */
     display: flex; /* Use flex for alignment */
@@ -86,13 +73,13 @@ h2 {
 .item-details h3 {
     margin: 0;
     font-size: 18px;
-    color: #333;
+    color: #333; /* Item title color */
 }
 
 .item-details p {
     margin: 5px 0 0;
     font-size: 16px;
-    color: green; /* Keep this as is for emphasis */
+    color: green; /* Keep this for emphasis */
 }
 
 .item-details i {
@@ -116,6 +103,7 @@ h2 {
 .order-summary h3 {
     margin-top: 0;
     font-size: 20px;
+    color: #6200ea; /* Summary title color */
 }
 
 .order-summary p {
@@ -127,15 +115,20 @@ h2 {
 .order-summary .total {
     font-weight: bold;
     font-size: 18px;
+    color: #333; /* Total price color */
 }
 
 .continue-button {
     width: 100%;
-    background-color: #6200ea; /* Consistent button color */
+    background-color: #6200ea; /* Button color */
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+}
+
+.continue-button:hover {
+    background-color: #5e35b1; /* Darker shade on hover */
 }

@@ -9,7 +9,7 @@ include("connect.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="style/profile.css">
+    <link rel="stylesheet" href="styles/profile.css">
     <link rel="icon" type="image/png" href="images/iu_favicon.png">
 </head>
 <body>

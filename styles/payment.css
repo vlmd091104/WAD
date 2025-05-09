@@ -7,8 +7,8 @@
 
 /* Body Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    font-family: sans-serif; /* Use sans-serif for consistency */
+    background-color: #f4f4f4; /* Match background color */
     color: #333;
 }
 
@@ -17,7 +17,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
+    background-color: #6200ea; /* Navbar background color */
     padding: 10px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -25,7 +25,7 @@ body {
 .logo {
     font-size: 18px;
     font-weight: bold;
-    color: #a46aff;
+    color: white; /* Logo color */
 }
 
 .nav-links {
@@ -39,20 +39,20 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
+    color: white; /* Link color */
     font-size: 14px;
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: #a46aff;
+    color: #d1c4e9; /* Lighter shade on hover */
 }
 
 /* Main Container */
 .container {
     text-align: center;
     padding: 20px;
-    background-color: #fff;
+    background-color: white; /* White background for the payment container */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 300px;
@@ -62,7 +62,7 @@ body {
 /* Heading Styling */
 h1 {
     margin-bottom: 20px;
-    color: #333;
+    color: #333; /* Heading color */
 }
 
 /* Payment Options Styling */
@@ -93,7 +93,7 @@ h1 {
     margin-top: 10px;
     font-size: 16px;
     color: white;
-    background-color: #28a745;
+    background-color: #6200ea; /* Button color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -101,5 +101,5 @@ h1 {
 }
 
 .submit-button:hover {
-    background-color: #218838;
+    background-color: #5e35b1; /* Darker shade on hover */
 }

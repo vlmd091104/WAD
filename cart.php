@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IU Canteen - Cart</title>
-    <link rel="stylesheet" href="style/cart.css">
+    <link rel="stylesheet" href="styles/cart.css">
     <link rel="icon" type="image/png" href="images/iu_favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
 </head>
@@ -57,7 +57,7 @@
                 <p>Shipping: <span>5000 VND</span></p>
                 <p>Promotion: <span>0 VND</span></p>
                 <p class="total">Total: <span>40000 VND</span></p>
-                <a href="pmp.html"><button class="continue-button">Continue to payment →</button></a>
+                <a href="payment.html"><button class="continue-button">Continue to payment →</button></a>
             </div>
         </div>
     </main>
