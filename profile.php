@@ -13,33 +13,52 @@ include("connect.php");
     <link rel="icon" type="image/png" href="images/iu_favicon.png">
 </head>
 <body>
-    <div>
-        <p>
-        Hello <?php
+    <div class="container">
+        <?php
+        if (isset($_GET['success'])) {
+            echo '<div class="alert success">Profile updated successfully!</div>';
+        } elseif (isset($_GET['error'])) {
+            echo '<div class="alert error">Failed to update profile. Please try again.</div>';
+        }
+        ?>
+        
+        <?php
         if (isset($_SESSION['email'])) {
             $email = $_SESSION['email'];
             $query = mysqli_query($conn, "SELECT users.* FROM `users` WHERE users.email='$email'");
             $row = mysqli_fetch_array($query);
-            echo htmlspecialchars($row['fullname']);
+            
+            if ($row) {
+        ?>
+                <div class="profile-info">
+                    <h2>Your Profile</h2>
+                    <form action="update_profile.php" method="POST">
+                        <div class="form-group">
+                            <label for="fullname">Full Name:</label>
+                            <input type="text" id="fullname" name="fullname" value="<?php echo htmlspecialchars($row['fullname']); ?>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" value="<?php echo htmlspecialchars($row['email']); ?>" disabled>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($row['phone']); ?>" required>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="submit" name="update" class="update-btn">Update Profile</button>
+                            <a href="menu.php" class="menu-btn">Menu</a>
+                            <a href="logout.php" class="logout-btn">Logout</a>
+                        </div>
+                    </form>
+                </div>
+        <?php
+            }
         }
         ?>
-        </p>
-        <p>
-            Your email: <?php
-            if (isset($row)) { // Check if $row is set
-                echo htmlspecialchars($row['email']);
-            }
-            ?>
-        </p>
-        <p>
-            Your phone: <?php
-            if (isset($row)) { // Check if $row is set
-                echo htmlspecialchars($row['phone']);
-            }
-            ?>
-        </p>
-        <a href="logout.php">Logout</a>
-        <a href="menu.php">Menu</a>
     </div>
 </body>
 </html>

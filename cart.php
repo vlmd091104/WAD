@@ -1,5 +1,12 @@
 <?php
     include('connect.php');
+    session_start();
+    
+    // Check if user is logged in
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        header("Location: signOrReg.php");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -26,41 +33,71 @@
     <main>
         <h2>Cart</h2>
         <div class="cart-container">
-            <div class="cart-items">
-                <div class="item">
-                    <div class="item-details">
-                    <?php
-                        $sql = "SELECT * FROM product WHERE product.product_id = 1";
-                        $result = mysqli_query($conn, $sql);
-                        if(mysqli_num_rows($result)>0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
-                                echo '<p>' . htmlspecialchars($row['price']) . ' VND</p>';
-                                echo '<i class="fa fa-trash" id="cart-remove"></i>';
-                            }
-                        }
-                    ?>
-                    </div>
-                </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be populated by JavaScript -->
             </div>
             <div class="order-summary">
                 <h3>Order summary</h3>
-                <p>Subtotal: <span><?php
-                        $sql = "SELECT * FROM product WHERE product.product_id = 1";
-                        $result = mysqli_query($conn, $sql);
-                        if(mysqli_num_rows($result)>0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                echo $row['price'];
-                            }
-                        }
-                    ?> VND</span></p>
-                <p>Shipping: <span>5000 VND</span></p>
-                <p>Promotion: <span>0 VND</span></p>
-                <p class="total">Total: <span>40000 VND</span></p>
-                <a href="payment.html"><button class="continue-button">Continue to payment →</button></a>
+                <div id="orderSummary">
+                    <!-- Order summary will be populated by JavaScript -->
+                </div>
+                <a href="payment.html" id="checkoutButton" style="display: none;">
+                    <button class="continue-button">Continue to payment →</button>
+                </a>
             </div>
         </div>
     </main>
-    <script scr="addtocart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cartItems');
+            const orderSummaryContainer = document.getElementById('orderSummary');
+            const checkoutButton = document.getElementById('checkoutButton');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                orderSummaryContainer.innerHTML = '';
+                return;
+            }
+
+            let subtotal = 0;
+            cartItemsContainer.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'item';
+                itemElement.innerHTML = `
+                    <div class="item-details">
+                        <h3>${item.name}</h3>
+                        <p>${item.price.toLocaleString()} VND</p>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                        </div>
+                        <p class="item-total">${(item.price * item.quantity).toLocaleString()} VND</p>
+                        <i class="fa fa-trash" onclick="removeFromCart('${item.id}')"></i>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+                subtotal += item.price * item.quantity;
+            });
+
+            const shipping = 5000;
+            const promotion = 0;
+            const total = subtotal + shipping - promotion;
+
+            orderSummaryContainer.innerHTML = `
+                <p>Subtotal: <span>${subtotal.toLocaleString()} VND</span></p>
+                <p>Shipping: <span>${shipping.toLocaleString()} VND</span></p>
+                <p>Promotion: <span>${promotion.toLocaleString()} VND</span></p>
+                <p class="total">Total: <span>${total.toLocaleString()} VND</span></p>
+            `;
+
+            checkoutButton.style.display = 'block';
+        });
+    </script>
+    <script src="addtocart.js"></script>
 </body>
 </html>

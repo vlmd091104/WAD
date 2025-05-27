@@ -1,66 +1,78 @@
 // addtocart.js
 
-// Initialize an empty cart
-let cart = [];
-
-// Function to add item to cart
-function addToCart(productId, productName, productPrice) {
-    // Create an item object
-    const item = {
-        id: productId,
-        name: productName,
-        price: productPrice,
-    };
-
-    // Add item to cart
-    cart.push(item);
-    updateCartDisplay();
+// Initialize cart in localStorage if it doesn't exist
+if (!localStorage.getItem('cart')) {
+    localStorage.setItem('cart', JSON.stringify([]));
 }
 
-// Function to update cart display
-function updateCartDisplay() {
-    const cartContainer = document.querySelector('.cart-items');
-    const orderSummary = document.querySelector('.order-summary');
-    cartContainer.innerHTML = ''; // Clear current cart items
-
-    let subtotal = 0;
-
-    // Display each item in the cart
-    cart.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('item');
-        itemDiv.innerHTML = `
-            <div class="item-details">
-                <h3>${item.name}</h3>
-                <p>${item.price} VND</p>
-                <i class="fa fa-trash" onclick="removeFromCart(${item.id})"></i>
-            </div>
-        `;
-        cartContainer.appendChild(itemDiv);
-        subtotal += item.price; // Update subtotal
-    });
-
-    // Update order summary
-    orderSummary.querySelector('p:nth-child(1) span').textContent = `${subtotal} VND`;
-    const shipping = 5000;
-    const promotion = 0;
-    const total = subtotal + shipping - promotion;
-
-    orderSummary.querySelector('.total span').textContent = `${total} VND`;
-}
-
-// Function to remove item from the cart
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId); // Remove item
-    updateCartDisplay(); // Update display
-}
-
-// Event listener for all cart icons in the menu
-document.querySelectorAll('.add-to-cart-icon').forEach(icon => {
-    icon.addEventListener('click', () => {
-        const productId = icon.dataset.id; // Assuming each icon has a data-id attribute
-        const productName = icon.dataset.name; // Assuming each icon has a data-name attribute
-        const productPrice = parseInt(icon.dataset.price); // Assuming each icon has a data-price attribute
-        addToCart(productId, productName, productPrice);
+// Add click event listeners to all add-to-cart icons
+document.addEventListener('DOMContentLoaded', function() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-icon');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.dataset.id;
+            const productName = this.dataset.name;
+            const productPrice = parseFloat(this.dataset.price);
+            
+            // Get current cart
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                });
+            }
+            
+            // Save updated cart
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Show feedback to user
+            showNotification('Item added to cart!');
+        });
     });
 });
+
+// Remove item from cart
+function removeFromCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.id !== productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    location.reload(); // Refresh the cart page
+}
+
+// Update cart quantity
+function updateQuantity(productId, newQuantity) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+        if (newQuantity <= 0) {
+            removeFromCart(productId);
+        } else {
+            item.quantity = newQuantity;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            location.reload(); // Refresh the cart page
+        }
+    }
+}
+
+// Show notification
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    // Remove notification after 2 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 2000);
+}

@@ -28,14 +28,20 @@ if(isset($_POST['signIn'])){
     $password=$_POST['password'];
     $password=md5($password);
 
-    $sql="SELECT * FROM users WHERE email='$email' and password='$password'";
-    $result=$conn->query($sql);
-    if($result->num_rows> 0){
+    $sql="SELECT * FROM users WHERE email=? AND password=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if($result->num_rows > 0){
         session_start();
-        $row=$result->fetch_assoc();
-        $_SESSION['email']=$row['email'];
+        $row = $result->fetch_assoc();
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['fullname'] = $row['fullname'];
+        $_SESSION['user_id'] = $row['user_id'];
+        $_SESSION['logged_in'] = true;
         header("location: menu.php");
-        session_start();
         exit();
     } else {
         echo"Incorrect Email or Password. Try again!";

@@ -1,5 +1,12 @@
 <?php
     include 'connect.php';
+    session_start();
+    
+    // Check if user is logged in
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        header("Location: signOrReg.php");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +18,29 @@
     <link rel="icon" type="image/png" href="images/iu_favicon.png">
     <link rel="stylesheet" href="styles/menu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            z-index: 1000;
+            animation: slideIn 0.5s, fadeOut 0.5s 1.5s;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -32,112 +62,41 @@
        
         <!-- Content Section -->
         <div class="content">
-            <!-- Order Section -->
-    
-        <div class="menu-section">
-            <h2>HD food</h2>
+            <!-- Menu Sections -->
             <?php
-                $sql = "SELECT * FROM product WHERE product.restaurant_id = 1";
+            $restaurants = [
+                ['id' => 1, 'name' => 'HD food'],
+                ['id' => 2, 'name' => 'Big U'],
+                ['id' => 3, 'name' => 'Com Viet'],
+                ['id' => 4, 'name' => 'T&D'],
+                ['id' => 5, 'name' => 'Coffee Story']
+            ];
+
+            foreach ($restaurants as $restaurant) {
+                echo '<div class="menu-section">';
+                echo '<h2>' . htmlspecialchars($restaurant['name']) . '</h2>';
+                
+                $sql = "SELECT * FROM product WHERE product.restaurant_id = " . $restaurant['id'];
                 $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result)>0){
-                    while($row = mysqli_fetch_assoc($result)){
+                
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         echo '<div class="menu-item">';
                         echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
                         echo '<p>' . htmlspecialchars($row['description']) . '</p>';
                         echo '<p>Price: ' . htmlspecialchars($row['price']) . ' VND</p>';
                         echo '<i class="fa fa-cart-plus add-to-cart-icon" 
-                        data-id="' . htmlspecialchars($row['product_id']) . '" 
-                        data-name="' . htmlspecialchars($row['name']) . '" 
-                        data-price="' . htmlspecialchars($row['price']) . '"></i>';
+                            data-id="' . htmlspecialchars($row['product_id']) . '" 
+                            data-name="' . htmlspecialchars($row['name']) . '" 
+                            data-price="' . htmlspecialchars($row['price']) . '"></i>';
                         echo '</div>';
                     }
                 }
+                echo '</div>';
+            }
             ?>
-        </div>
-    
-        <div class="menu-section">
-            <h2>Big U</h2>
-            <?php
-                $sql = "SELECT * FROM product WHERE product.restaurant_id = 2";
-                $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result)>0){
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo '<div class="menu-item">';
-                        echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
-                        echo '<p>' . htmlspecialchars($row['description']) . '</p>';
-                        echo '<p>Price: ' . htmlspecialchars($row['price']) . ' VND</p>';
-                        echo '<i class="fa fa-cart-plus add-to-cart-icon" 
-                        data-id="' . htmlspecialchars($row['product_id']) . '" 
-                        data-name="' . htmlspecialchars($row['name']) . '" 
-                        data-price="' . htmlspecialchars($row['price']) . '"></i>';
-                        echo '</div>';
-                    }
-                }
-            ?>
-        </div>
-    
-        <div class="menu-section">
-            <h2>Com Viet</h2>
-            <?php
-                $sql = "SELECT * FROM product WHERE product.restaurant_id = 3";
-                $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result)>0){
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo '<div class="menu-item">';
-                        echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
-                        echo '<p>' . htmlspecialchars($row['description']) . '</p>';
-                        echo '<p>Price: ' . htmlspecialchars($row['price']) . ' VND</p>';
-                        echo '<i class="fa fa-cart-plus add-to-cart-icon" 
-                        data-id="' . htmlspecialchars($row['product_id']) . '" 
-                        data-name="' . htmlspecialchars($row['name']) . '" 
-                        data-price="' . htmlspecialchars($row['price']) . '"></i>';
-                        echo '</div>';
-                    }
-                }
-            ?>
-        </div>
-        <div class="menu-section">
-            <h2>T&D</h2>
-            <?php
-                $sql = "SELECT * FROM product WHERE product.restaurant_id = 4";
-                $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result)>0){
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo '<div class="menu-item">';
-                        echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
-                        echo '<p>' . htmlspecialchars($row['description']) . '</p>';
-                        echo '<p>Price: ' . htmlspecialchars($row['price']) . ' VND</p>';
-                        echo '<i class="fa fa-cart-plus add-to-cart-icon" 
-                        data-id="' . htmlspecialchars($row['restaurant_id']) . '" 
-                        data-name="' . htmlspecialchars($row['name']) . '" 
-                        data-price="' . htmlspecialchars($row['price']) . '"></i>';
-                        echo '</div>';
-                    }
-                }
-            ?>
-        </div>
-        <div class="menu-section">
-            <h2>Coffee Story</h2>
-            <?php
-                $sql = "SELECT * FROM product WHERE product.restaurant_id = 5";
-                $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result)>0){
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo '<div class="menu-item">';
-                        echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
-                        echo '<p>' . htmlspecialchars($row['description']) . '</p>';
-                        echo '<p>Price: ' . htmlspecialchars($row['price']) . ' VND</p>';
-                        echo '<i class="fa fa-cart-plus add-to-cart-icon" 
-                        data-id="' . htmlspecialchars($row['restaurant_id']) . '" 
-                        data-name="' . htmlspecialchars($row['name']) . '" 
-                        data-price="' . htmlspecialchars($row['price']) . '"></i>';
-                        echo '</div>';
-                    }
-                }
-            ?>
-        </div>
-        <script class="addtocart.js"></script>
         </div>
     </div>
+    <script src="addtocart.js"></script>
 </body>
 </html>

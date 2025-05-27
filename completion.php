@@ -1,5 +1,29 @@
 <?php
     include('connect.php');
+    session_start();
+    
+    // Check if user is logged in
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        header("Location: signOrReg.php");
+        exit();
+    }
+    
+    // Insert order details into database if not already done
+    if (isset($_SESSION['order_id'])) {
+        $orderId = $_SESSION['order_id'];
+    } else {
+        // Generate a random shipper name for demo purposes
+        $shippers = ['John Doe', 'Jane Smith', 'Mike Johnson', 'Sarah Wilson'];
+        $randomShipper = $shippers[array_rand($shippers)];
+        
+        // Insert into delivery table
+        $sql = "INSERT INTO delivery (date, deliverer_name, user_id) VALUES (NOW(), ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $randomShipper, $_SESSION['user_id']);
+        $stmt->execute();
+        $orderId = $conn->insert_id;
+        $_SESSION['order_id'] = $orderId;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -31,43 +55,82 @@
             <p>Thank you for your order. Your food is being prepared and will be delivered soon!</p>
             <p class="countdown">Estimated Delivery Time (Minutes): <strong id="timer">15:00</strong></p>
             <?php
-                $sql = "SELECT * FROM delivery WHERE delivery.cart_id = 1";
-                $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result)>0){
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo '<p>Your cart order date: '.$row['date'].'</p>';
-                        echo '<p>Your shipper: '.$row['deliverer_name'].'</p>';
-                }}
+                $sql = "SELECT * FROM delivery WHERE delivery.cart_id = ? AND delivery.user_id = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ii", $orderId, $_SESSION['user_id']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if($result->num_rows > 0){
+                    $row = $result->fetch_assoc();
+                    echo '<p>Your order date: ' . htmlspecialchars($row['date']) . '</p>';
+                    echo '<p>Your shipper: ' . htmlspecialchars($row['deliverer_name']) . '</p>';
+                }
             ?>
         </div>
         <div class="order-summary">
             <h3>Order Summary</h3>
-            <div class="order-item">
-                <span>Com Chien Heo Xu</span>
-                <span>35000 VND</span>
-            </div>
-            <div class="total-amount">
-                <span>Total</span>
-                <span>40000 VND</span>
+            <div id="orderItems">
+                <!-- Order items will be populated by JavaScript -->
             </div>
         </div>
         <script>
-        let countdownTime = 15 * 60;
-        const timerElement = document.getElementById('timer');
-        const countdownInterval = setInterval(() => {
-            const minutes = Math.floor(countdownTime / 60);
-            const seconds = countdownTime % 60;
-            const formattedMinutes = String(minutes).padStart(2, '0');
-            const formattedSeconds = String(seconds).padStart(2, '0');
-            timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
-            countdownTime--;
-            if (countdownTime < 0) {
-                clearInterval(countdownInterval);
-                timerElement.textContent = "Time's up!";
-            }
-        }, 1000);
+            // Display order items from localStorage
+            document.addEventListener('DOMContentLoaded', function() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const orderItemsContainer = document.getElementById('orderItems');
+                let subtotal = 0;
+
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'order-item';
+                    itemElement.innerHTML = `
+                        <div class="item-details">
+                            <span>${item.name} x${item.quantity}</span>
+                            <span>${itemTotal.toLocaleString()} VND</span>
+                        </div>
+                    `;
+                    orderItemsContainer.appendChild(itemElement);
+                });
+
+                const shipping = 5000;
+                const total = subtotal + shipping;
+
+                // Add shipping and total
+                const totalElement = document.createElement('div');
+                totalElement.className = 'total-amount';
+                totalElement.innerHTML = `
+                    <div class="shipping">
+                        <span>Shipping</span>
+                        <span>${shipping.toLocaleString()} VND</span>
+                    </div>
+                    <div class="final-total">
+                        <span>Total</span>
+                        <span>${total.toLocaleString()} VND</span>
+                    </div>
+                `;
+                orderItemsContainer.appendChild(totalElement);
+            });
+
+            // Countdown timer
+            let countdownTime = 15 * 60;
+            const timerElement = document.getElementById('timer');
+            const countdownInterval = setInterval(() => {
+                const minutes = Math.floor(countdownTime / 60);
+                const seconds = countdownTime % 60;
+                const formattedMinutes = String(minutes).padStart(2, '0');
+                const formattedSeconds = String(seconds).padStart(2, '0');
+                timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                countdownTime--;
+                if (countdownTime < 0) {
+                    clearInterval(countdownInterval);
+                    timerElement.textContent = "Time's up!";
+                }
+            }, 1000);
         </script>
-        <a href="index.html" class="back-menu">Back to Home</a>
+        <a href="logout.php" class="back-menu" onclick="localStorage.removeItem('cart');">Back to Home</a>
     </div>
 </body>
 </html>
